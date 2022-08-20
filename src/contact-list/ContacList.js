@@ -6,15 +6,16 @@ function ContactItem(props) {
         <ul>
             {props.contacts.map(contact =>
                 <li className='contact' key={contact.id}>
-                    <input type="checkbox" />
+
                     <span className="contact-emoji">{contact.emoji?.emoji}</span>
                     <div className="contact-field name" type="text">{contact.name}</div>
                     <div className="contact-field phone" type="text">{contact.phone}</div>
-                    <input
-                        className='delete-contact'
-                        type='button'
-                        onClick={(e) => props.onDeleteContact(contact.id)}
-                        value='Delete Contact'></input>
+                    <button className='delete-contact' type='button' onClick={(e) => props.onEditContact(contact.id)}>
+                        Edit Contact
+                    </button>
+                    <button className='delete-contact' type='button' onClick={(e) => props.onDeleteContact(contact.id)}>
+                        Delete Contact
+                    </button>
                 </li>
             )}
         </ul>

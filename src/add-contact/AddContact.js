@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Emoji from '../emoji/Emoji';
 import './AddContact.scss';
 
 function AddContact(props) {
-    const emptyContact = { emoji: { emoji: '' }, name: '', phone: '' };
+    const emptyContact = { id: null, emoji: { emoji: '' }, name: '', phone: '' };
+
     const [contact, setContact] = useState(emptyContact);
     const [hidden, setHidden] = useState(true);
+
+    useEffect(() => {
+        setContact(props.contact || emptyContact);
+    }, [props.contact]);
 
     return (
         <div className="add-contact">
@@ -20,11 +25,11 @@ function AddContact(props) {
                         setHidden(!hidden);
                     }} />
                 </label>
-                <span className='contact-emoji'>{contact.emoji?.emoji}</span>
-                <label>Name<input id="name" type="text" name="name" value={contact.name}
+                <span className='contact-emoji'>{contact?.emoji.emoji}</span>
+                <label>Name<input id="name" type="text" name="name" value={contact?.name}
                     onChange={e => setContact({ ...contact, name: e.target.value })} />
                 </label>
-                <label>Phone number<input id="phone" type="text" name="phone" value={contact.phone}
+                <label>Phone number<input id="phone" type="text" name="phone" value={contact?.phone}
                     onChange={e => setContact({ ...contact, phone: e.target.value })} />
                 </label>
                 <input type="submit" value='Save Contact' onClick={(e) => {
